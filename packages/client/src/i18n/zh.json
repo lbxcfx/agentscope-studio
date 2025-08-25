@@ -1,0 +1,219 @@
+{
+    "action": {
+        "cancel": "取消",
+        "clean-history": "清除历史",
+        "compare": "比较",
+        "delete": "删除",
+        "focus-on-latest-run": "自动切换到最新运行",
+        "ok": "确认"
+    },
+    "chat": {
+        "title-attachment": "总计 {{length}} 个 URL 附件",
+        "title-attachments": "总计 {{length}} 个 URL 附件",
+        "title-using-tool": "调用工具 ",
+        "title-time-total": "总耗时: {{totalTime}}s",
+        "title-tool-result": "运行结果"
+    },
+    "common": {
+        "attributes": "所有属性",
+        "api": "API 文档",
+        "application": "应用",
+        "apps": "应用",
+        "average": "平均",
+        "benchmark": "基准数据集",
+        "changeLanguage": "切换语言",
+        "completion": "生成内容",
+        "completion-average": "生成内容(Avg)",
+        "cont": "联系",
+        "dashboard": "运行监控",
+        "data-view": "数据视图",
+        "data-view-description": "当前运行实例的统计信息",
+        "distribution": "分布",
+        "docs": "文档",
+        "evaluation": "评测分析",
+        "evaluation-history": "评测历史",
+        "home": "主页",
+        "input": "输入",
+        "input-tokens": "输入 Token 数",
+        "id": "ID",
+        "latency": "耗时",
+        "llm-invocation": "模型调用",
+        "llm-invocations": "模型调用",
+        "message": "消息",
+        "metadata": "元数据",
+        "model-category": "模型种类",
+        "name": "名称",
+        "overview": "概览",
+        "output": "输出",
+        "output-tokens": "输出 Token 数",
+        "pid": "进程 ID",
+        "project": "项目",
+        "projects": "项目",
+        "prompt": "提示词",
+        "prompt-average": "提示词(Avg)",
+        "run": "运行",
+        "runs": "运行",
+        "run-name": "名称",
+        "thinking": "思考",
+        "times": "次数",
+        "timestamp": "时间戳",
+        "trace": "跟踪",
+        "trace-details": "跟踪详情",
+        "total": "总计",
+        "total-times": "总次数",
+        "total-tokens": "总 Token 数",
+        "tutorial": "教程",
+        "saving-directory": "保存目录",
+        "span-name": "Span 名称",
+        "span-number": "% Spans",
+        "span-kind": "Span 类型",
+        "span-status": "Span 状态",
+        "start-time": "开始时间",
+        "end-time": "结束时间",
+        "statistics": "统计",
+        "status": "状态"
+    },
+    "default-page": {
+        "no-data-available": "暂无数据"
+    },
+    "description": {
+        "trace": {
+            "input": "Span 输入，采用 JSON 格式组织并包含 \"args\" 和 \"kwargs\" 两个字段",
+            "metadata": "Span 元数据，包含额外记录的信息",
+            "output": "Span 输出"
+        },
+        "friday": "一个基于 LLM 构建的本地 AI 助手，在用户的日常生活和开发工作中提供帮助"
+    },
+    "error": {
+        "empty-input": "输入不能为空",
+        "invalid-url": "URL 无效：无法获取文件扩展名",
+        "project-not-found": "项目不存在",
+        "run-not-round": "运行实例不存在"
+    },
+    "help": {
+        "friday": {
+            "api-key": "用于访问 {{llmProvider}} LLM API 的密钥",
+            "llm-provider": "选择 LLM API 提供商",
+            "model-name": "用于生成回复的{{llmProvider}}模型",
+            "python-env": "Python 环境的绝对路径（3.10+），例如 /usr/bin/python",
+            "write-permission": "是否允许 Friday 修改你的本地文件，如果允许，Friday 将会装备一个写文件的工具"
+        }
+    },
+    "hint": {
+        "empty-trace": "数据为空",
+        "select-run": "点击运行实例以查看详细数据",
+        "select-message": "点击消息以查看详细数据",
+        "select-trace": "点击运行实例以查看跟踪数据"
+    },
+    "home": {
+        "as-friday-description": "Working in progress ...",
+        "as-x-description": "Working in progress ...",
+        "change-last-month": "+{{value}}在过去一个月",
+        "change-last-week": "+{{value}}在过去一周",
+        "change-last-year": "+{{value}}在过去一年",
+        "last-update": "最近更新于 {{time}}",
+        "recent-projects": "最近项目",
+        "recent-projects-empty": "项目为空，尝试运行一个 AgentScope 项目吧！",
+        "recent-projects-description": "过去 30 天内运行过的项目",
+        "run-number": "运行数量",
+        "overview-description": "最近一年中，每个月运行的实例数量统计"
+    },
+    "modal": {
+        "title-input-url": "请输入文件 URL"
+    },
+    "notification": {
+        "friday-error-title": "Friday 运行错误",
+        "update-version-description": "当前 @agentscope/studio 版本为 {{currentVersion}}, 最新版本为 {{latestVersion}}，请更新到最新版本",
+        "update-version-title": "更新可用"
+    },
+    "placeholder": {
+        "input-as-user": "以 {{name}} 的身份进行输入（按{{shortcutKeys}}发送消息）",
+        "input-disable": "当前不需要用户进行输入",
+        "input-friday-app": "{{shortcutKeys}} 发送消息",
+        "input-url": "指向图片/视频/音频的本地或网络 URL（回车键确认）",
+        "search-benchmark": "搜索基准数据集",
+        "search-evaluation": "搜索评测历史",
+        "search-project": "搜索项目",
+        "search-run": "搜索运行实例",
+        "search-span": "搜索跟踪数据"
+    },
+    "status": {
+        "done": "已结束",
+        "pending": "等待中",
+        "running": "运行中",
+        "unknown": "未知"
+    },
+    "table": {
+        "column": {
+            "benchmark": "基准",
+            "createdAt": "创建时间",
+            "finished": "已结束",
+            "ground-truth": "正确答案",
+            "id": "ID",
+            "name": "名称",
+            "pending": "等待中",
+            "progress": "进度",
+            "question": "问题",
+            "repeat": "重复次数",
+            "running": "运行中",
+            "status": "状态",
+            "time": "用时",
+            "total": "总计"
+        }
+    },
+    "tooltip": {
+        "avatar": {
+            "request-input": "以 {{name}} 的身份进行输入"
+        },
+        "button": {
+            "attachment-add": "插入图片/视频/音频文件到输入的消息中",
+            "attachment-delete": "删除该附件",
+            "clean-history": "清除当前对话历史",
+            "compare-evaluation": "比较同一基准数据集的两次评测结果",
+            "delete-selected-projects": "删除当前选中的 {{number}} 个项目",
+            "delete-selected-projects-disable": "从表格中选择项目以删除",
+            "focus-on-latest-run": "自动切换到最新运行实例",
+            "interrupt-reply": "中断回复",
+            "send-message": "按 {{shortcutKeys}} 键发送消息",
+            "send-message-disable": "当前输入请求为空",
+            "scroll-to-bottom": "滚动到最底部"
+        },
+        "chart": {
+            "invocation": "调用次数"
+        },
+        "switch": {
+            "display-raw-data": "显式原始数据"
+        },
+        "table": {
+            "cancel-sort": "点击取消排序",
+            "trigger-desc": "点击降序排列",
+            "trigger-asc": "点击升序排列",
+            "sort-title": "点击按 {{title}} 排序"
+        }
+    },
+    "tour": {
+        "run": {
+            "data-view-description": "当前运行实例的详细数据将会显示在该面板上",
+            "data-view-title": "数据视图",
+            "run-table-description": "该项目所有的运行实例将会显示在该表中",
+            "run-table-title": "运行实例",
+            "textarea-description": "连接 AgentScope Studio 后，应用中 UserAgent 的用户输入操作将被转移到该输入框",
+            "textarea-title": "对话输入",
+            "send-description": "当应用运行到需要 UserAgent 实例进行输入时，该按钮将激活，点击按钮扮演对应的角色进行输入",
+            "send-title": "发送消息"
+        }
+    },
+    "unit": {
+        "run": "运行",
+        "runs": "运行",
+        "time": "次",
+        "times": "次",
+        "token": "Token",
+        "tokens": "Tokens",
+        "second": "s",
+        "microseconds": "ms",
+        "thousands": "K",
+        "millions": "M",
+        "billions": "B"
+    }
+}

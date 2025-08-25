@@ -1,0 +1,43 @@
+import { BlockType } from '@shared/types';
+
+export const copyToClipboard = async (text: string): Promise<boolean> => {
+    try {
+        await navigator.clipboard.writeText(text);
+        return true;
+    } catch (err) {
+        console.error('Failed to copy text: ', err);
+        return false;
+    }
+};
+
+export const getBlockTypeFromExtension = (extension: string | undefined) => {
+    const imagesExt = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'heic', 'heif'];
+    const audioExt = ['mp3', 'wav', 'aiff', 'aac', 'ogg', 'flac'];
+    const videoExt = [
+        'mp4',
+        'mpeg',
+        'mov',
+        'avi',
+        'x-flv',
+        'mpg',
+        'webm',
+        'wmv',
+        '3gpp',
+    ];
+
+    if (extension === undefined) {
+        return null;
+    }
+
+    if (imagesExt.includes(extension)) {
+        return BlockType.IMAGE;
+    }
+    if (audioExt.includes(extension)) {
+        return BlockType.AUDIO;
+    }
+    if (videoExt.includes(extension)) {
+        return BlockType.VIDEO;
+    }
+
+    return null;
+};

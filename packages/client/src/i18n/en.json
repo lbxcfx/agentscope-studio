@@ -1,0 +1,227 @@
+{
+    "action": {
+        "cancel": "Cancel",
+        "clean-history": "Clean History",
+        "compare": "Compare",
+        "delete": "Delete",
+        "focus-on-latest-run": "Focus on latest",
+        "ok": "OK"
+    },
+    "chat": {
+        "title-attachment": "Total {{length}} URL is attached",
+        "title-attachments": "Total {{length}} URLs are attached",
+        "title-using-tool": "Using tool ",
+        "title-time-total": "Total time: {{totalTime}}s",
+        "title-tool-result": "Tool result of"
+    },
+    "common": {
+        "attributes": "All Attributes",
+        "api": "API",
+        "application": "Application",
+        "apps": "Apps",
+        "average": "Average",
+        "benchmark": "Benchmark",
+        "changeLanguage": "Change Language",
+        "completion": "Completion",
+        "completion-average": "Completion(Avg)",
+        "cont": "Cont",
+        "dashboard": "Dashboard",
+        "data-view": "Data View",
+        "data-view-description": "The statistics of the current run instance",
+        "distribution": "Distribution",
+        "docs": "Docs",
+        "evaluation": "Evaluation",
+        "evaluation-history": "Evaluation History",
+        "home": "Home",
+        "id": "ID",
+        "input": "Input",
+        "input-tokens": "Input Tokens",
+        "latency": "Latency",
+        "llm-invocation": "Invocation",
+        "llm-invocations": "Invocations",
+        "message": "Message",
+        "metadata": "Metadata",
+        "model-category": "Model Category",
+        "name": "Name",
+        "output": "Output",
+        "output-tokens": "Output Tokens",
+        "overview": "Overview",
+        "pid": "Pid",
+        "project": "Project",
+        "projects": "Projects",
+        "prompt": "Prompt",
+        "prompt-average": "Prompt(Avg)",
+        "run": "Run",
+        "runs": "Runs",
+        "run-name": "Name",
+        "thinking": "Thinking",
+        "times": "Times",
+        "timestamp": "Timestamp",
+        "trace": "TRACE",
+        "trace-details": "Trace Details",
+        "total": "Total",
+        "total-times": "Total Times",
+        "total-tokens": "Tokens",
+        "tutorial": "Tutorial",
+        "saving-directory": "Saving Directory",
+        "span-name": "Span Name",
+        "span-number": "% Spans",
+        "span-kind": "Span Kind",
+        "span-status": "Span Status",
+        "start-time": "Start Time",
+        "end-time": "End Time",
+        "statistics": "Statistics",
+        "status": "Status"
+    },
+    "default-page": {
+        "no-data-available": "No data available"
+    },
+    "description": {
+        "trace": {
+            "input": "The tracing span input, organized in a JSON format with \"args\" and \"kwargs\" fields",
+            "metadata": "The tracing span metadata for additional information",
+            "output": "The tracing span output"
+        },
+        "friday": "A local deployed agent that helps you with your daily tasks and answer your questions about AgentScope"
+    },
+    "error": {
+        "empty-input": "Input cannot be empty",
+        "invalid-url": "Invalid URL: cannot get file extension",
+        "project-not-found": "Project not found",
+        "run-not-found": "Run not found"
+    },
+    "help": {
+        "friday": {
+            "api-key": "The {{llmProvider}} API key, used to access the LLM API provider",
+            "llm-provider": "Select the LLM API provider",
+            "model-name": "The {{llmProvider}} model used to generate response",
+            "python-env": "Absolute path to your Python env (3.10+), e.g. /usr/bin/python",
+            "write-permission": "Whether allow Friday to modify your local files. If allowed, Friday will equip a tool to write text files"
+        }
+    },
+    "hint": {
+        "empty-trace": "No data available",
+        "select-run": "Click on a run to view details",
+        "select-message": "Click on a message to view details",
+        "select-trace": "Click on a run to view trace data"
+    },
+    "home": {
+        "as-friday-description": "A local deployed agent that helps you with your daily tasks and development with AgentScope",
+        "as-x-description": "Working in progress ...",
+        "change-last-month": "+{{value}} in the last month",
+        "change-last-week": "+{{value}} in the last week",
+        "change-last-year": "+{{value}} in the last year",
+        "last-update": "Last update at {{time}}",
+        "recent-projects": "Recent Projects",
+        "recent-projects-empty": "No recent projects, try running an AgentScope project!",
+        "recent-projects-description": "The recent projects you have run in last 30 days",
+        "run-number": "# of runs",
+        "overview-description": "The number of runs in the last each month"
+    },
+    "modal": {
+        "title-input-url": "Please input the file URL"
+    },
+    "notification": {
+        "friday-error-title": "Error when executing Friday",
+        "update-version-description": "A new version ({{latestVersion}}) is available. Your current version is {{currentVersion}}. Please update to the latest version",
+        "update-version-title": "Update Available"
+    },
+    "placeholder": {
+        "input-as-user": "Type your message in voice of {{name}} ({{shortcutKeys}} to send message)",
+        "input-disable": "Currently no user input is needed",
+        "input-friday-app": "{{shortcutKeys}} to send message",
+        "input-url": "A local or web URL to the image/video/audio file (press enter to confirm)",
+        "search-benchmark": "Search benchmarks",
+        "search-evaluation": "Search evaluation history",
+        "search-project": "Search projects in the table",
+        "search-run": "Search runs in the table",
+        "search-span": "Search spans in the trace"
+    },
+    "status": {
+        "done": "Done",
+        "pending": "Pending",
+        "running": "Running",
+        "unknown": "Unknown"
+    },
+    "message": {
+        "friday": {
+            "success-install-requirements": "Requirements installed successfully.",
+            "success-save-config": "Configuration saved successfully.",
+            "info-install-requirements": "Installing Python requirements for Friday, please wait ...",
+            "info-save-config": "Save the configuration for Friday, please wait ..."
+        }
+    },
+    "table": {
+        "column": {
+            "benchmark": "Benchmark",
+            "createdAt": "Created At",
+            "finished": "Finished",
+            "ground-truth": "Ground Truth",
+            "id": "ID",
+            "name": "Name",
+            "pending": "Pending",
+            "progress": "Progress",
+            "question": "Question",
+            "repeat": "Repeat",
+            "running": "Running",
+            "status": "Status",
+            "time": "Time",
+            "total": "Total"
+        }
+    },
+    "tooltip": {
+        "avatar": {
+            "request-input": "You need to input in voice of {{name}}"
+        },
+        "button": {
+            "attachment-add": "Attach image/video/audio file to the input message",
+            "attachment-delete": "Delete the attached file",
+            "clean-history": "Clean the current conversation history",
+            "compare-evaluation": "Compare two evaluation results of the same benchmark dataset",
+            "delete-selected-projects": "Delete {{number}} selected project(s)",
+            "delete-selected-projects-disable": "Select projects from the table to delete",
+            "focus-on-latest-run": "Focus on the latest run automatically",
+            "interrupt-reply": "Interrupt the reply",
+            "send-message": "Press {{shortcutKeys}} to send message",
+            "send-message-disable": "No user input is requested",
+            "scroll-to-bottom": "Scroll to the bottom"
+        },
+        "chart": {
+            "invocation": "# of invocation"
+        },
+        "switch": {
+            "display-raw-data": "Display raw data"
+        },
+        "table": {
+            "cancel-sort": "Click to cancel sorting",
+            "trigger-asc": "Click to sort ascending",
+            "trigger-desc": "Click to sort descending",
+            "sort-title": "Click to sort by {{title}}"
+        }
+    },
+    "tour": {
+        "run": {
+            "data-view-description": "Data view panel provides details of the current run instance",
+            "data-view-title": "Data View",
+            "run-table-description": "The run instances of the current project will be displayed in this table",
+            "run-table-title": "Run Instances",
+            "textarea-description": "Once connected to AgentScope Studio, the user input operations of the UserAgent instances will be transferred to this input box",
+            "textarea-title": "User Input Transfer",
+            "send-description": "When user input is required in the application, this button will be activated. Click to send the message in the voice of the corresponding role",
+            "send-title": "Send Message"
+        }
+    },
+    "unit": {
+        "run": "Run",
+        "runs": "Runs",
+        "time": "Time",
+        "times": "Times",
+        "token": "Token",
+        "tokens": "Tokens",
+        "second": "s",
+        "microseconds": "ms",
+        "thousands": "K",
+        "millions": "M",
+        "billions": "B"
+    }
+}
