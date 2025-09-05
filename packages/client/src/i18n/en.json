@@ -96,7 +96,9 @@
             "llm-provider": "Select the LLM API provider",
             "model-name": "The {{llmProvider}} model used to generate response",
             "python-env": "Absolute path to your Python env (3.10+), e.g. /usr/bin/python",
-            "write-permission": "Whether allow Friday to modify your local files. If allowed, Friday will equip a tool to write text files"
+            "write-permission": "Whether allow Friday to modify your local files. If allowed, Friday will equip a tool to write text files",
+            "base-url": "The base URL for the LLM API provider",
+            "base-url-placeholder": "e.g. https://api.openai.com/v1,http://localhost:11434"
         }
     },
     "hint": {

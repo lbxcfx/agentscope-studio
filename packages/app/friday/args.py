@@ -35,5 +35,10 @@ def get_args() -> Namespace:
         type=bool,
         required=True,
     )
+    parser.add_argument(
+        "--baseUrl",
+        type=str,
+        required=False,
+    )
     args = parser.parse_args()
     return args

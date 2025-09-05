@@ -11,6 +11,7 @@ export interface FridayConfig {
     llmProvider: string;
     modelName: string;
     writePermission: boolean;
+    baseUrl?: string;
 }
 
 export class FridayConfigManager {

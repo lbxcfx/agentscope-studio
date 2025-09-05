@@ -89,7 +89,7 @@ The solution/code to the user query may already exist in the AgentScope resource
     )
 
     # get model from args
-    model = get_model(args.llmProvider, args.modelName, args.apiKey)
+    model = get_model(args.llmProvider, args.modelName, args.apiKey, args.baseUrl)
     formatter = get_formatter(args.llmProvider)
 
     # Create the ReAct agent
