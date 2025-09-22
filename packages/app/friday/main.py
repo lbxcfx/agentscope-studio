@@ -145,8 +145,13 @@ The solution/code to the user query may already exist in the AgentScope resource
         save_dir=path_dialog_history
     )
 
-    if os.path.exists(os.path.join(path_dialog_history, FRIDAY_SESSION_ID)):
-        await session.load_session_state(friday=agent)
+    if os.path.exists(
+            os.path.join(path_dialog_history, f"{FRIDAY_SESSION_ID}.json")
+    ):
+        await session.load_session_state(
+            session_id=FRIDAY_SESSION_ID,
+            friday=agent
+        )
 
     # The socket is used for realtime steering
     socket = StudioConnect(url=args.studio_url, agent=agent)
@@ -155,7 +160,10 @@ The solution/code to the user query may already exist in the AgentScope resource
     await socket.disconnect()
 
     # Save dialog history
-    await session.save_session_state(friday=agent)
+    await session.save_session_state(
+        session_id=FRIDAY_SESSION_ID,
+        friday=agent
+    )
 
 if __name__ == '__main__':
     asyncio.run(main())
