@@ -36,7 +36,7 @@ def get_formatter(llmProvider: str) -> FormatterBase:
                 f"Unsupported model provider: {llmProvider}. "
             )
 
-def get_model(llmProvider:str, modelName: str, apiKey: str) -> ChatModelBase:
+def get_model(llmProvider:str, modelName: str, apiKey: str, baseUrl: str = None) -> ChatModelBase:
     """Get the model instance based on the input arguments."""
 
     match llmProvider.lower():
@@ -47,15 +47,20 @@ def get_model(llmProvider:str, modelName: str, apiKey: str) -> ChatModelBase:
                 stream=True,
             )
         case "openai":
+            client_args = {}
+            if baseUrl:
+                client_args["base_url"] = baseUrl
             return OpenAIChatModel(
                 model_name=modelName,
                 api_key=apiKey,
                 stream=True,
+                client_args=client_args,
             )
         case "ollama":
             return OllamaChatModel(
                 model_name=modelName,
                 stream=True,
+                host=baseUrl,
             )
         case "gemini":
             return GeminiChatModel(
