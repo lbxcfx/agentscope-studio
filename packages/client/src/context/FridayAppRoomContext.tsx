@@ -25,6 +25,12 @@ interface FridayAppRoomContextType {
         name: string,
         role: string,
         content: ContentBlocks,
+        debateConfig?: {
+            enabled: boolean;
+            agentCount: number;
+            rounds: number;
+            topic: string;
+        } | null,
     ) => void;
     moreReplies: boolean;
     interruptReply: () => void;
@@ -116,6 +122,12 @@ export function FridayAppRoomContextProvider({ children }: Props) {
         name: string,
         role: string,
         content: ContentBlocks,
+        debateConfig?: {
+            enabled: boolean;
+            agentCount: number;
+            rounds: number;
+            topic: string;
+        } | null,
     ) => {
         if (!socket) {
             messageApi.error('Socket not connected. Please refresh the page.');
@@ -125,6 +137,7 @@ export function FridayAppRoomContextProvider({ children }: Props) {
                 name,
                 role,
                 content,
+                debateConfig || null,
                 (response: BackendResponse) => {
                     if (!response.success) {
                         notificationApi.error({

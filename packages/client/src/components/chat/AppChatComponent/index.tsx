@@ -1,6 +1,6 @@
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { BlockType, ContentBlocks, ImageBlock, ReplyData, SourceType } from '@shared/types';
-import { Button, Flex, Tooltip, Upload, UploadFile } from 'antd';
+import { Button, Flex, Switch, Tooltip, Upload, UploadFile } from 'antd';
 import ArrowDownIcon from '../../../assets/svgs/arrow-down.svg?react';
 import DeleteIcon from '../../../assets/svgs/delete.svg?react';
 import { RemoveScrollBarStyle } from '@/styles.ts';
@@ -10,6 +10,7 @@ import { useMessageApi } from '@/context/MessageApiContext.tsx';
 import Lottie from 'lottie-react';
 import loadingData from '@/assets/lottie/loading.json';
 import UserInputComponent from '@/components/chat/UserInput';
+import { useFridaySettingRoom } from '@/context/FridaySettingRoomContext.tsx';
 
 import type { GetProp, UploadProps } from 'antd';
 
@@ -19,7 +20,15 @@ interface Props {
     replies: ReplyData[];
     isReplying: boolean;
     moreReplies: boolean;
-    onUserInput: (blocksInput: ContentBlocks) => void;
+    onUserInput: (
+        blocksInput: ContentBlocks,
+        debateConfig?: {
+            enabled: boolean;
+            agentCount: number;
+            rounds: number;
+            topic: string;
+        } | null,
+    ) => void;
     onInterruptReply: () => void;
     onCleanHistory: () => void;
     isCleaningHistory: boolean;
@@ -40,6 +49,10 @@ const AppChatComponent = ({
     const [isAtBottom, setIsAtBottom] = useState<boolean>(false);
     const messageContainerRef = useRef<HTMLDivElement>(null);
     const { messageApi } = useMessageApi();
+    const { fridayConfig } = useFridaySettingRoom();
+
+    // Debate mode states
+    const [debateEnabled, setDebateEnabled] = useState<boolean>(false);
 
     const hasUnFinished = replies.some((reply) => !reply.finished);
 
@@ -71,11 +84,22 @@ const AppChatComponent = ({
         if (inputBlocks.length === 0) {
             messageApi.error(t('error.empty-input'));
         } else {
-            onUserInput(inputBlocks);
+            // Build debate config if enabled
+            // In debate mode, use the input text as the debate topic
+            const debateConfig = debateEnabled && fridayConfig?.debateConfig
+                ? {
+                      enabled: true,
+                      agentCount: fridayConfig.debateConfig.agentCount,
+                      rounds: fridayConfig.debateConfig.rounds,
+                      topic: inputText, // Use the main input text as debate topic
+                  }
+                : null;
+
+            onUserInput(inputBlocks, debateConfig);
             setInputText('');
             setAttachment([]);
         }
-    }, [attachment, inputText, isReplying]);
+    }, [attachment, inputText, isReplying, debateEnabled, fridayConfig]);
 
     const [previewOpen, setPreviewOpen] = useState(false);
     const [previewImage, setPreviewImage] = useState('');
@@ -222,6 +246,28 @@ const AppChatComponent = ({
                 gap={'small'}
                 align={'center'}
             >
+                {/* Debate mode controls */}
+                {fridayConfig?.debateConfig?.enabled && (
+                    <Flex
+                        style={{ width: '100%' }}
+                        gap={'small'}
+                        align={'center'}
+                    >
+                        <Switch
+                            size={'small'}
+                            checked={debateEnabled}
+                            onChange={setDebateEnabled}
+                            disabled={isReplying}
+                        />
+                        <span style={{ fontSize: '12px', color: 'var(--muted-foreground)' }}>
+                            {debateEnabled
+                                ? 'Debate Mode: Enter your debate topic below'
+                                : 'Debate Mode'
+                            }
+                        </span>
+                    </Flex>
+                )}
+
                 <Flex
                     style={{ height: 32, width: '100%', position: 'relative' }}
                     justify={'center'}

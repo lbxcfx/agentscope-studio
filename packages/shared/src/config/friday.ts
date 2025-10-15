@@ -13,6 +13,13 @@ export interface FridayConfig {
     visionModelName?: string;  // Optional vision model for multimodal tasks
     writePermission: boolean;
     baseUrl?: string;
+
+    // Debate mode configuration
+    debateConfig?: {
+        enabled: boolean;
+        agentCount: number;
+        rounds: number;
+    };
 }
 
 export class FridayConfigManager {

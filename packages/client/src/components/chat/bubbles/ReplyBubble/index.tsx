@@ -1,5 +1,5 @@
-import { Avatar, Flex } from 'antd';
-import { memo } from 'react';
+import { Avatar, Flex, Tag } from 'antd';
+import { memo, useMemo } from 'react';
 import { ContentBlocks } from '@shared/types';
 import BubbleBlock from '@/components/chat/bubbles/BubbleBlock';
 import { useTranslation } from 'react-i18next';
@@ -34,6 +34,28 @@ const ReplyBubble = ({
           ).toFixed(1)
         : null;
 
+    // Detect debate messages
+    const isDebateMessage = useMemo(() => {
+        return name.toLowerCase().includes('debater') ||
+               name.toLowerCase().includes('moderator');
+    }, [name]);
+
+    // Get debater info
+    const debaterInfo = useMemo(() => {
+        const match = name.match(/Debater_(\d+)/i);
+        if (match) {
+            return { type: 'debater', number: parseInt(match[1]) };
+        }
+        if (name.toLowerCase().includes('moderator')) {
+            return { type: 'moderator', number: 0 };
+        }
+        return null;
+    }, [name]);
+
+    // Colors for different debaters
+    const debaterColors = ['#1890ff', '#52c41a', '#faad14', '#f5222d', '#722ed1'];
+    const getDebaterColor = (num: number) => debaterColors[(num - 1) % debaterColors.length];
+
     return (
         <Flex
             style={{
@@ -49,6 +71,12 @@ const ReplyBubble = ({
                     width: '100%',
                     padding: 8,
                     borderRadius: 8,
+                    ...(isDebateMessage && debaterInfo?.type === 'debater'
+                        ? {
+                              borderLeft: `4px solid ${getDebaterColor(debaterInfo.number)}`,
+                              backgroundColor: 'rgba(0, 0, 0, 0.02)',
+                          }
+                        : {}),
                 }}
                 vertical={false}
                 gap={'small'}
@@ -56,7 +84,11 @@ const ReplyBubble = ({
                 {role === 'user' ? null : (
                     <Avatar
                         icon={<LogoIcon width={25} height={25} />}
-                        style={{ background: 'white' }}
+                        style={{
+                            background: isDebateMessage && debaterInfo?.type === 'debater'
+                                ? getDebaterColor(debaterInfo.number)
+                                : 'white',
+                        }}
                     />
                 )}
                 <Flex
@@ -72,8 +104,21 @@ const ReplyBubble = ({
                             fontWeight: 500,
                         }}
                         align={'center'}
+                        gap={'small'}
                     >
                         {name}
+                        {isDebateMessage && debaterInfo && (
+                            <Tag
+                                color={
+                                    debaterInfo.type === 'moderator'
+                                        ? 'gold'
+                                        : getDebaterColor(debaterInfo.number)
+                                }
+                                style={{ margin: 0 }}
+                            >
+                                {debaterInfo.type === 'moderator' ? 'Moderator' : `Debater ${debaterInfo.number}`}
+                            </Tag>
+                        )}
                     </Flex>
                     <Flex
                         vertical={true}

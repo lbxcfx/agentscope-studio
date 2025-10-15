@@ -1,5 +1,5 @@
 import { memo, ReactNode, useEffect, useMemo, useState } from 'react';
-import { Button, Flex, Form, Input, Select, Spin, Switch } from 'antd';
+import { Button, Flex, Form, Input, InputNumber, Select, Slider, Spin, Switch } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import PageTitleSpan from '@/components/spans/PageTitleSpan.tsx';
 import QwenLogo from '@/assets/svgs/qwen.svg?react';
@@ -115,6 +115,11 @@ const SettingPage = () => {
                     form={form}
                     initialValues={{
                         writePermission: false,
+                        debateConfig: {
+                            enabled: false,
+                            agentCount: 3,
+                            rounds: 3,
+                        },
                     }}
                     onFinish={async (config: FridayConfig) => {
                         setLoading(true);
@@ -339,6 +344,43 @@ const SettingPage = () => {
                         help={t('help.friday.write-permission')}
                     >
                         <Switch size={'small'} />
+                    </Form.Item>
+
+                    <Form.Item
+                        name={['debateConfig', 'enabled']}
+                        label={'Debate Mode'}
+                        help={'Enable multi-agent debate mode for collaborative problem solving'}
+                        valuePropName={'checked'}
+                    >
+                        <Switch size={'small'} />
+                    </Form.Item>
+
+                    <Form.Item
+                        name={['debateConfig', 'agentCount']}
+                        label={'Number of Debaters'}
+                        help={'How many agents will participate in the debate (2-5)'}
+                        dependencies={[['debateConfig', 'enabled']]}
+                    >
+                        <Slider
+                            min={2}
+                            max={5}
+                            marks={{ 2: '2', 3: '3', 4: '4', 5: '5' }}
+                            disabled={!Form.useWatch(['debateConfig', 'enabled'], form)}
+                        />
+                    </Form.Item>
+
+                    <Form.Item
+                        name={['debateConfig', 'rounds']}
+                        label={'Debate Rounds'}
+                        help={'Number of debate rounds (1-10)'}
+                        dependencies={[['debateConfig', 'enabled']]}
+                    >
+                        <InputNumber
+                            min={1}
+                            max={10}
+                            style={{ width: '100%' }}
+                            disabled={!Form.useWatch(['debateConfig', 'enabled'], form)}
+                        />
                     </Form.Item>
 
                     <Form.Item {...tailFormItemLayout}>

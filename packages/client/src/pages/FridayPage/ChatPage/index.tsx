@@ -24,8 +24,8 @@ const ChatPage = () => {
                 replies={replies}
                 isReplying={isReplying}
                 moreReplies={moreReplies}
-                onUserInput={(contentBlocks) => {
-                    handleUserInput('user', 'user', contentBlocks);
+                onUserInput={(contentBlocks, debateConfig) => {
+                    handleUserInput('user', 'user', contentBlocks, debateConfig);
                 }}
                 onInterruptReply={interruptReply}
                 onCleanHistory={cleanCurrentHistory}

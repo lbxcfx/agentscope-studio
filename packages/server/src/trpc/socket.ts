@@ -399,6 +399,12 @@ export class SocketManager {
                     name: string,
                     role: string,
                     content: ContentBlocks,
+                    debateConfig: {
+                        enabled: boolean;
+                        agentCount: number;
+                        rounds: number;
+                        topic: string;
+                    } | null,
                     callback: (response: BackendResponse) => void,
                 ) => {
                     const replyingManager = ReplyingStateManager.getInstance();
@@ -464,8 +470,18 @@ export class SocketManager {
                     ];
                     console.log(fridayConfig);
                     for (const [key, value] of Object.entries(fridayConfig)) {
-                        if (key !== 'pythonEnv' && key !== 'mainScriptPath') {
+                        if (key !== 'pythonEnv' && key !== 'mainScriptPath' && key !== 'debateConfig') {
                             args.push(`--${key}`, value);
+                        }
+                    }
+
+                    // Add debate configuration parameters
+                    if (debateConfig && debateConfig.enabled) {
+                        args.push('--debateMode', 'true');
+                        args.push('--debateAgents', String(debateConfig.agentCount));
+                        args.push('--debateRounds', String(debateConfig.rounds));
+                        if (debateConfig.topic) {
+                            args.push('--debateTopic', debateConfig.topic);
                         }
                     }
 
@@ -734,16 +750,30 @@ export async function runPythonScript(
 
         // 收集标准输出
         pythonProcess.stdout.on('data', (data) => {
-            output += data.toString();
+            const chunk = data.toString();
+            console.debug('[PYTHON STDOUT]:', chunk);
+            output += chunk;
         });
 
         // 收集错误输出
         pythonProcess.stderr.on('data', (data) => {
-            errorOutput += data.toString();
+            const chunk = data.toString();
+            console.debug('[PYTHON STDERR]:', chunk);
+            errorOutput += chunk;
+        });
+
+        // 监听进程错误
+        pythonProcess.on('error', (error) => {
+            console.error('[PYTHON PROCESS ERROR]:', error);
+            resolve({
+                success: false,
+                error: `Process error: ${error.message}`,
+            });
         });
 
         // 进程结束时处理结果
         pythonProcess.on('close', (code) => {
+            console.debug('[PYTHON PROCESS CLOSED] Exit code:', code);
             if (code === 0) {
                 resolve({
                     success: true,
@@ -752,7 +782,7 @@ export async function runPythonScript(
             } else {
                 resolve({
                     success: false,
-                    error: errorOutput.trim(),
+                    error: errorOutput.trim() || `Process exited with code ${code}`,
                 });
             }
         });
