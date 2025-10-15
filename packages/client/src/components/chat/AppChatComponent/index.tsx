@@ -1,5 +1,5 @@
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
-import { BlockType, ContentBlocks, ReplyData } from '@shared/types';
+import { BlockType, ContentBlocks, ImageBlock, ReplyData, SourceType } from '@shared/types';
 import { Button, Flex, Tooltip, Upload, UploadFile } from 'antd';
 import ArrowDownIcon from '../../../assets/svgs/arrow-down.svg?react';
 import DeleteIcon from '../../../assets/svgs/delete.svg?react';
@@ -97,10 +97,65 @@ const AppChatComponent = ({
         setPreviewOpen(true);
     };
 
-    const handleChange: UploadProps['onChange'] = ({
+    const handleChange: UploadProps['onChange'] = async ({
         fileList: newFileList,
     }) => {
         setFileList(newFileList);
+
+        // Convert uploaded files to ImageBlock format
+        const imageBlocks: ContentBlocks = [];
+        for (const file of newFileList) {
+            if (file.originFileObj && file.status !== 'error') {
+                try {
+                    const base64String = await getBase64(file.originFileObj as FileType);
+                    // Remove the data URL prefix (e.g., "data:image/png;base64,")
+                    const base64Data = base64String.split(',')[1];
+
+                    imageBlocks.push({
+                        type: BlockType.IMAGE,
+                        source: {
+                            type: SourceType.BASE64,
+                            media_type: file.type || 'image/png',
+                            data: base64Data,
+                        },
+                    } as ImageBlock);
+                } catch (error) {
+                    console.error('Failed to convert image to base64:', error);
+                    messageApi.error(`Failed to process image: ${file.name}`);
+                }
+            }
+        }
+        setAttachment(imageBlocks);
+    };
+
+    const handleRemove: UploadProps['onRemove'] = (file) => {
+        const newFileList = fileList.filter((item) => item.uid !== file.uid);
+        setFileList(newFileList);
+
+        // Update attachment to match the new file list
+        const updateAttachmentAsync = async () => {
+            const imageBlocks: ContentBlocks = [];
+            for (const f of newFileList) {
+                if (f.originFileObj && f.status !== 'error') {
+                    try {
+                        const base64String = await getBase64(f.originFileObj as FileType);
+                        const base64Data = base64String.split(',')[1];
+                        imageBlocks.push({
+                            type: BlockType.IMAGE,
+                            source: {
+                                type: SourceType.BASE64,
+                                media_type: f.type || 'image/png',
+                                data: base64Data,
+                            },
+                        } as ImageBlock);
+                    } catch (error) {
+                        console.error('Failed to convert image to base64:', error);
+                    }
+                }
+            }
+            setAttachment(imageBlocks);
+        };
+        updateAttachmentAsync();
     };
     const uploadRef = useRef<any>(null);
 
@@ -222,6 +277,7 @@ const AppChatComponent = ({
                             fileList={fileList}
                             onPreview={handlePreview}
                             onChange={handleChange}
+                            onRemove={handleRemove}
                         >
                             <Button
                                 ref={uploadRef}

@@ -34,12 +34,16 @@ from tool.utils import (
 from utils.common import get_local_file_path
 from utils.connect import StudioConnect
 from utils.constants import FRIDAY_SESSION_ID
+from utils.image_converter import ImageConverter
 
 
 async def main():
     args = get_args()
 
     studio_pre_print_hook.url = args.studio_url
+
+    # Initialize image converter
+    image_converter = ImageConverter()
 
     # Forward message to the studio
     ReActAgent.register_class_hook(
@@ -87,6 +91,17 @@ The solution/code to the user query may already exist in the AgentScope resource
     toolkit.register_tool_function(
         view_agentscope_faq, group_name="agentscope_tools"
     )
+
+    # Function to detect if content contains images
+    def has_images(content):
+        """Check if the content contains any images."""
+        if isinstance(content, list):
+            for block in content:
+                if isinstance(block, dict):
+                    # Check for image blocks with source field
+                    if block.get("type") == "image" and "source" in block:
+                        return True
+        return False
 
     # get model from args
     model = get_model(args.llmProvider, args.modelName, args.apiKey, args.baseUrl)
@@ -153,8 +168,38 @@ The solution/code to the user query may already exist in the AgentScope resource
     # The socket is used for realtime steering
     socket = StudioConnect(url=args.studio_url, agent=agent)
     await socket.connect()
-    await agent(Msg("user", json5.loads(args.query), "user"))
-    await socket.disconnect()
+
+    try:
+        # Parse and convert the query content
+        query_content = json5.loads(args.query)
+        converted_content = image_converter.convert_content_blocks(query_content)
+
+        # Debug: print the converted content
+        print(f"DEBUG - Converted content: {converted_content}")
+
+        # Check if we need to use vision model
+        if has_images(converted_content) and args.visionModelName:
+            # Switch to vision model for this query
+            vision_model = get_model(
+                args.llmProvider,
+                args.visionModelName,
+                args.apiKey,
+                args.baseUrl
+            )
+            agent.model = vision_model
+            print(f"Switched to vision model: {args.visionModelName}")
+
+        # Send the converted message to the agent
+        await agent(Msg("user", converted_content, "user"))
+
+        # Switch back to text model after processing
+        if has_images(converted_content) and args.visionModelName:
+            agent.model = model
+            print(f"Switched back to text model: {args.modelName}")
+    finally:
+        # Clean up temporary files
+        image_converter.cleanup()
+        await socket.disconnect()
 
     # Save dialog history
     await session.save_session_state(

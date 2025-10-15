@@ -54,6 +54,8 @@ Additionally, AgentScope Studio built-in a Copilot named **Friday** as 1) a deve
 rapid secondary development, and 3) integration of advanced features in
 [AgentScope](https://github.com/agentscope-ai/agentscope).
 
+**New Feature**: Friday now supports multimodal image understanding! Upload images and ask questions about them. See [MULTIMODAL_CONFIG.md](./MULTIMODAL_CONFIG.md) for configuration guide.
+
 <p align="center">
     <img
         src="./assets/home.gif"

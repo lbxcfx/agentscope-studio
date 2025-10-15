@@ -10,6 +10,7 @@ export interface FridayConfig {
     mainScriptPath?: string;
     llmProvider: string;
     modelName: string;
+    visionModelName?: string;  // Optional vision model for multimodal tasks
     writePermission: boolean;
     baseUrl?: string;
 }

@@ -83,6 +83,22 @@ const SettingPage = () => {
         return !llmProvider || llmProvider.startsWith('ollama');
     }, [llmProvider]);
 
+    const modelNameHelp = useMemo(() => {
+        if (!llmProvider) {
+            return t('help.friday.model-name', { llmProvider });
+        }
+        const specificKey = `help.friday.model-name-${llmProvider}`;
+        return t(specificKey);
+    }, [llmProvider, t]);
+
+    const visionModelNameHelp = useMemo(() => {
+        if (!llmProvider) {
+            return t('help.friday.vision-model-name', { llmProvider });
+        }
+        const specificKey = `help.friday.vision-model-name-${llmProvider}`;
+        return t(specificKey);
+    }, [llmProvider, t]);
+
     return (
         <div className="flex flex-col w-full h-full pl-12 pr-12 pt-8 pb-8 gap-13">
             <div className="flex flex-col w-full gap-2">
@@ -270,11 +286,32 @@ const SettingPage = () => {
                     </Form.Item>
                     <Form.Item
                         name={'modelName'}
-                        label={'Model Name'}
+                        label={'Language Model Name'}
                         required
-                        help={t('help.friday.model-name', { llmProvider })}
+                        help={modelNameHelp}
                     >
-                        <Input />
+                        <Input placeholder={
+                            llmProvider === 'dashscope' ? 'e.g. qwen-max, qwen-plus' :
+                            llmProvider === 'openai' ? 'e.g. gpt-4, gpt-4-turbo' :
+                            llmProvider === 'anthropic' ? 'e.g. claude-3-5-sonnet-20241022' :
+                            llmProvider === 'gemini' ? 'e.g. gemini-pro, gemini-1.5-flash' :
+                            llmProvider === 'ollama' ? 'e.g. llama3, qwen, mistral' :
+                            ''
+                        } />
+                    </Form.Item>
+                    <Form.Item
+                        name={'visionModelName'}
+                        label={'Vision Model Name'}
+                        help={visionModelNameHelp}
+                    >
+                        <Input placeholder={
+                            llmProvider === 'dashscope' ? 'e.g. qwen-vl-max, qwen-vl-plus' :
+                            llmProvider === 'openai' ? 'e.g. gpt-4o, gpt-4o-mini' :
+                            llmProvider === 'anthropic' ? 'e.g. claude-3-opus-20240229' :
+                            llmProvider === 'gemini' ? 'e.g. gemini-pro-vision, gemini-1.5-pro' :
+                            llmProvider === 'ollama' ? 'e.g. llava, bakllava' :
+                            ''
+                        } />
                     </Form.Item>
                     <Form.Item
                         name={'apiKey'}

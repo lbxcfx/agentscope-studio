@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:doc.agentscope.io)",
+      "Bash(python -m py_compile:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npm run type-check:*)",
+      "Bash(npm run:*)",
+      "Bash(test:*)",
+      "Bash(lsof:*)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(awk:*)",
+      "Bash(taskkill:*)",
+      "Bash(python:*)",
+      "Read(//d/agentscope-main/src/agentscope/formatter/**)",
+      "Bash(timeout 120 tail -f /dev/null)",
+      "Bash(git add:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

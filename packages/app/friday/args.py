@@ -26,6 +26,11 @@ def get_args() -> Namespace:
         required=True,
     )
     parser.add_argument(
+        "--visionModelName",
+        type=str,
+        required=False,
+    )
+    parser.add_argument(
         "--apiKey",
         type=str,
         required=True,
